@@ -4,23 +4,29 @@ import Ball from './src/ball'
 
 export default class App extends React.Component {
   state = {
-    animation : new Animated.Value(1)
+    animation : new Animated.Value(0)
   }
   startAnimation = () => {
     Animated.timing(this.state.animation,{
-      toValue: 0,
-      duration : 350
-    }).start(() => {
+      toValue: 300,
+      //positive y values go down, negative values go up
+      duration : 1500
+    }).start(()=>{
       Animated.timing(this.state.animation,{
-        toValue:1,
-        duration:500
+        toValue:0,
+        duration:1500
       }).start();
     });
+
   }
 
   render() {
     const animStyles = {
-      opacity : this.state.animation
+      transform  : [
+        {
+          translateY : this.state.animation,
+        }
+      ]
     }
 
     return (
