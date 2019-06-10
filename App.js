@@ -8,7 +8,7 @@ export default class App extends React.Component {
   }
   startAnimation = () => {
     Animated.timing(this.state.animation,{
-      toValue: 360,
+      toValue: 1,
       duration : 1500
     }).start(()=>{
       Animated.timing(this.state.animation,{
@@ -20,21 +20,23 @@ export default class App extends React.Component {
   }
 
   render() {
-    const boxRotation = 
+    const widthChange = 
       this.state.animation.interpolate({
-        inputRange : [0,360],
-        outputRange :[ "0deg","360deg"]
+        inputRange : [0,1],
+        outputRange :[ "20%","50%"]
         //positive values means clockwise rotation, negative values means counter clockwise
       })
-    
+    const heightChange = this.state.animation.interpolate({
+      inputRange : [0,1],
+      outputRange : ["20%","30%"]
+    })
     const animStyles = {
-      transform : [
-        {
-          //rotate :  boxRotation,
-          // rotateY: boxRotation
-          rotateX : boxRotation
-        }
-      ]        
+      
+        
+          width:widthChange,
+          height:heightChange
+        
+              
     }
    
 
@@ -59,8 +61,8 @@ const styles = StyleSheet.create({
     justifyContent:"center"
   },
   box : {
-    width:150,
-    height : 150,
+    // width:"20%",
+    // height:"20%",
     backgroundColor:"tomato"
   }
 });
