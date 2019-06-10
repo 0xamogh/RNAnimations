@@ -21,9 +21,8 @@ export default class App extends React.Component {
 
   render() {
     const animStyles = {
-      width : this.state.animation,
-      height : this.state.animation
-      //this allows us to scale the object without scaling
+      top : this.state.animation,
+      left : this.state.animation
     }
 
     return (
@@ -49,6 +48,9 @@ const styles = StyleSheet.create({
     justifyContent:"center"
   },
   box : {
+    position: "absolute",
+    left:0,
+    top:0,
     width:150,
     height : 150,
     backgroundColor:"tomato"
