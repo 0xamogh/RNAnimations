@@ -4,15 +4,15 @@ import Ball from './src/ball'
 
 export default class App extends React.Component {
   state = {
-    animation : new Animated.Value(1)
+    animation : new Animated.Value(150),
   }
   startAnimation = () => {
     Animated.timing(this.state.animation,{
-      toValue: -2,
+      toValue: 300,
       duration : 1500
     }).start(()=>{
       Animated.timing(this.state.animation,{
-        toValue:1,
+        toValue:150,
         duration:1500
       }).start();
     });
@@ -21,15 +21,9 @@ export default class App extends React.Component {
 
   render() {
     const animStyles = {
-      transform  : [
-        {
-          scale : this.state.animation,
-          //scaleX:this.state.animation
-          //scaleY:this.state.animation
-          //children of animated object also get scaled
-          //-ve value of scale implies, that the object gets flipped
-        }
-      ]
+      width : this.state.animation,
+      height : this.state.animation
+      //this allows us to scale the object without scaling
     }
 
     return (
