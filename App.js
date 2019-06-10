@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View,TouchableWithoutFeedback, Animated,interpolate } from 'react-native';
-import Ball from './src/ball'
+//import Ball from './src/ball'
 
 export default class App extends React.Component {
   state = {
@@ -8,7 +8,7 @@ export default class App extends React.Component {
   }
   startAnimation = () => {
     Animated.timing(this.state.animation,{
-      toValue: 1,
+      toValue: 360,
       duration : 1500
     }).start(()=>{
       Animated.timing(this.state.animation,{
@@ -20,32 +20,33 @@ export default class App extends React.Component {
   }
 
   render() {
-    const boxInterpolation = 
+    const boxRotation = 
       this.state.animation.interpolate({
-        inputRange : [0,1],
-        outputRange :[ "rgb(255,99,71)","rgb(99,71,255)"]
+        inputRange : [0,360],
+        outputRange :[ "0deg","360deg"]
+        //positive values means clockwise rotation, negative values means counter clockwise
       })
-    const textInterpolation = this.state.animation.interpolate({
-      inputRange:[0,1],
-      outputRange : ["rgb(99,71,255)","rgb(255,99,71)"]
-    })
     
     const animStyles = {
-      backgroundColor:boxInterpolation,
+      transform : [
+        {
+          //rotate :  boxRotation,
+          // rotateY: boxRotation
+          rotateX : boxRotation
+        }
+      ]        
     }
-    const textAnimStyles = {
-      color: textInterpolation
-    }
+   
 
     return (
       <View style={styles.container}>
         <TouchableWithoutFeedback
           onPress={this.startAnimation}>
               <Animated.View style={[styles.box,animStyles]}>
-                <Animated.Text style={textAnimStyles}> Sample Text</Animated.Text>
+                <Text> Sample Text</Text>
               </Animated.View>
         </TouchableWithoutFeedback>
-      </View>
+       </View>
     );
   }
 }
