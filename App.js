@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TouchableWithoutFeedback, Animated,interpolate } from 'react-native';
+import { StyleSheet, Text, View,TouchableWithoutFeedback, Animated,interpolate, Easing } from 'react-native';
 //import Ball from './src/ball'
 
 export default class App extends React.Component {
@@ -8,37 +8,31 @@ export default class App extends React.Component {
   }
   startAnimation = () => {
     Animated.timing(this.state.animation,{
-      toValue: 1,
-      duration : 1500
+      toValue: 300,
+      duration : 500,
+     // easing : Easing.back(5),
+     // easing: Easing.bounce,
+     easing : Easing.elastic(5),
+     // easing : Easing.bezier(.4,.3,.1),
+      easing :Easing.circle
+
+
     }).start(()=>{
       Animated.timing(this.state.animation,{
         toValue:0,
-        duration:1500
+        duration:500,
       }).start();
     });
 
   }
 
   render() {
-    const widthChange = 
-      this.state.animation.interpolate({
-        inputRange : [0,1],
-        outputRange :[ "20%","50%"]
-        //positive values means clockwise rotation, negative values means counter clockwise
-      })
-    const heightChange = this.state.animation.interpolate({
-      inputRange : [0,1],
-      outputRange : ["20%","30%"]
-    })
-    const animStyles = {
-      
-        
-          width:widthChange,
-          height:heightChange
-        
-              
+    const animStyles= { 
+      transform : [
+        {translateY: this.state.animation}
+      ]
+
     }
-   
 
     return (
       <View style={styles.container}>
@@ -61,8 +55,8 @@ const styles = StyleSheet.create({
     justifyContent:"center"
   },
   box : {
-    // width:"20%",
-    // height:"20%",
+     width:150,
+     height:150,
     backgroundColor:"tomato"
   }
 });
